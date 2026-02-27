@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Budget Pocket App</title>
+    <meta name="theme-color" content="#5a67d8" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header>
+        <h1>Budget Pocket</h1>
+        <p>Mobile-friendly budget tracker inspired by your Excel sheet.</p>
+        <p class="install-hint" id="installHint">Tip: use your browser menu to install/add to Home Screen.</p>
+      </header>
+
+      <section class="summary-grid" aria-label="Budget summary">
+        <article>
+          <h2>Total Income</h2>
+          <p id="totalIncome">$0.00</p>
+        </article>
+        <article>
+          <h2>Total Expenses</h2>
+          <p id="totalExpense">$0.00</p>
+        </article>
+        <article>
+          <h2>Balance</h2>
+          <p id="balance">$0.00</p>
+        </article>
+      </section>
+
+      <section class="panel">
+        <h2>Add or Update Budget Item</h2>
+        <form id="entryForm">
+          <input type="hidden" id="entryId" />
+          <div class="field-row">
+            <label>
+              Type
+              <select id="type" required>
+                <option value="expense">Expense</option>
+                <option value="income">Income</option>
+              </select>
+            </label>
+            <label>
+              Amount
+              <input id="amount" type="number" min="0" step="0.01" placeholder="0.00" required />
+            </label>
+          </div>
+
+          <div class="field-row">
+            <label>
+              Category
+              <input id="category" type="text" maxlength="40" placeholder="Rent, Salary, Grocery" required />
+            </label>
+            <label>
+              Date
+              <input id="date" type="date" required />
+            </label>
+          </div>
+
+          <label>
+            Note
+            <textarea id="note" rows="2" maxlength="160" placeholder="Optional details"></textarea>
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" id="saveButton">Save Entry</button>
+            <button type="button" id="resetButton" class="ghost">Clear</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Entries</h2>
+          <div class="actions">
+            <button id="downloadCsv" class="ghost">Export CSV</button>
+            <label class="upload">
+              Import CSV
+              <input id="uploadCsv" type="file" accept=".csv" hidden />
+            </label>
+          </div>
+        </div>
+        <p class="hint">Tip: You can export this CSV and open/edit it in Excel anytime.</p>
+        <ul id="entryList" class="entry-list" aria-live="polite"></ul>
+      </section>
+    </main>
+
+    <template id="entryTemplate">
+      <li class="entry-item">
+        <div>
+          <p class="entry-main"></p>
+          <p class="entry-meta"></p>
+        </div>
+        <div class="entry-controls">
+          <button class="edit-btn ghost">Edit</button>
+          <button class="delete-btn danger">Delete</button>
+        </div>
+      </li>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
